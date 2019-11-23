@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="createXbrlCoreJar">
+	<!-- define global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="bin" />
+	<property name="dist" location="dist" />
+	<property name="report" location="doc/codereport" />
+	<property name="api" location="doc/api" />
+	<property name="version" value="0.3" />
+	<path id="classpath">
+	 	<fileset dir="lib" includes="**/*.jar"/>
+	</path>
+	
+	<!-- Task definition for JavaNCSS (checks NCSS and CCN on source code) -->
+	<taskdef name="javancss" classname="javancss.JavancssAntTask" classpath="lib/javancss.jar"/>
+
+	<!-- Compile java code from ${src} to ${build} -->
+	<target name="compile" depends="clean" description="compile the source to ${build}">
+		<javac srcdir="${src}" destdir="${build}" classpathref="classpath"/>
+	</target>
+
+	<target name="clean" description="cleans all files which are created within the project">
+		<delete>
+			<fileset dir="${build}" includes="**/*.*" />
+			<fileset dir="${dist}" includes="**/*.*" />
+			<fileset dir="${report}" includes="**/*" />
+		</delete>
+		<delete includeemptydirs="true">
+			<fileset dir="${api}" includes="**/*" />
+		</delete>
+	</target>
+
+	<!-- creates xbrlcore.jar -->
+	<target name="createXbrlCoreJar" depends="compile" description="creates a JAR file of xbrlcore">
+		<jar basedir="${build}" destfile="${dist}/xbrlcore-${version}.jar" includes="xbrlcore/**" excludes="xbrlcore/junit/**" />
+		<antcall target="createXbrlDoc" />
+	</target>
+
+	<target name="createXbrlDoc" description="creates automatic documentation for xbrlcore">
+		<antcall target="xbrlcore-API" />
+		<antcall target="xbrlcore-NCSS" />
+	</target>
+
+	<!-- creates a javadoc api of xbrlcore -->
+	<target name="xbrlcore-API" description="generates the javadoc files of xbrlcore">
+		<delete includeemptydirs="true">
+			<fileset dir="${api}" includes="**/*" />
+		</delete>
+		<javadoc packagenames="xbrlcore.*" sourcepath="src" destdir="${api}" excludepackagenames="xbrlcore.junit.*" classpathref="classpath"/>
+	</target>
+
+	<!-- creates an output of JavaNCSS for xbrlcore -->
+	<target name="xbrlcore-NCSS" description="generates an output of JavaNCSS for xbrlcore">
+		<delete>
+			<fileset dir="${report}" includes="**/*" />
+		</delete>
+		<javancss srcdir="${src}\xbrlcore" abortOnFail="false" includes="**/*.java" excludes="junit/**/*.java" outputfile="${report}/xbrlcore-${version}-NCSS.txt" format="plain" generateReport="true" />
+	</target>
+</project>
+
