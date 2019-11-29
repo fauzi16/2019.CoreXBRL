@@ -61,16 +61,24 @@ public class PathResolver {
 	private static String resolveURIMapping(String remotePath) {
 		Map<String, String> uriMap = new HashMap<String, String>();
 		
+		/**
+		 * Windows OS URI map
 		uriMap.put("http://www.xbrl.org/", "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\RAPORTADO\\etc\\ojk\\taxonomy\\www.xbrl.org\\");
 		uriMap.put("http://xbrl.ojk.go.id/taxonomy/", "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\EXTRACTEDDIR\\taxonomy\\");
 		uriMap.put("http://xbrl.ojk.go.id/instance/", "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\INSTANCE\\");
 		uriMap.put("http://xbrl.fujitsu.com", "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\RAPORTADO\\etc\\ojk\\taxonomy\\xbrl.fj.com\\");
+		*/
 		
+		uriMap.put("http://xbrl.ojk.go.id/instance/", "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/INSTANCE/");
+		uriMap.put("http://www.xbrl.org/", "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/global/www.xbrl.org/");
+		uriMap.put("http://xbrl.ojk.go.id/taxonomy/", "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/");
 		
 		for(Entry<String, String> entry : uriMap.entrySet()) {
 			if(remotePath.startsWith(entry.getKey())) {
 				String result =  remotePath.replace(entry.getKey(), entry.getValue());
-				result = result.replaceAll("/", "\\\\");
+				if(!File.separator.equals("/")) {
+					result = result.replaceAll("/", "\\\\");
+				}
 				return result;
 			}
 		}

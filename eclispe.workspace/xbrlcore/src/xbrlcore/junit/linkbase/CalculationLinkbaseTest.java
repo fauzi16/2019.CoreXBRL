@@ -56,8 +56,14 @@ public class CalculationLinkbaseTest {
      * This method is executed before all test cases in this JUnit test.
      */
     
+    /**
+     * Windows OS Test Path
     private static String OJK_INSTANCE_LOCATION = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\INSTANCE\\252913-2019-11-30-000021300.xml";
     private static String OJK_TAXONOMY_LOCATION = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\EXTRACTEDDIR\\taxonomy\\view\\pmv\\2019-06-03\\bulanan\\gabungan\\000021300\\000021300-2019-06-03.xsd";
+    */
+    
+    private static String OJK_INSTANCE_LOCATION = "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/instance/PPTahunan/GeneralFinance/000000-2019-12-31-000020600.xml";
+    private static String OJK_TAXONOMY_LOCATION = "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/xbrl.ojk.go.id/view/pp/2019-06-03/tahunan/gabungan/000020600/000020600-2019-06-03.xsd";
     
     @BeforeClass
     public static void setUp() {
