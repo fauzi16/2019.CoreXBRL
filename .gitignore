@@ -1,2 +1,4 @@
 .*
+/eclispe.workspace/xbrlcore/bin
 !/.gitignore
+

@@ -37,6 +37,7 @@ import xbrlcore.linkbase.ReferenceLinkbase;
 import xbrlcore.logging.LogInterface;
 import xbrlcore.logging.LogInterface.LogLevel;
 import xbrlcore.taxonomy.TupleDefinition.TupleType;
+import xbrlcore.util.PathResolver;
 
 /**
  * 
@@ -438,8 +439,10 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
         if (uri.toLowerCase().indexOf("gcd") >= 0)
             return "de-gcd";
 
+        String separator = PathResolver.separator(uri);
+        
         String prefix = //"ns_" +
-            uri.substring(uri.lastIndexOf("/") + 1, uri.length());
+            uri.substring(uri.lastIndexOf(separator) + 1, uri.length());
 
         return prefix;
     }
@@ -711,7 +714,9 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
     }
 
     protected static URL getRelativeResource(String baseURI, String resource) throws MalformedURLException {
-        int p = baseURI.lastIndexOf('/');
+    	String separator = PathResolver.separator(baseURI);
+    	
+    	int p = baseURI.lastIndexOf(separator);
         String uri;
         if (p >= 0)
             uri = FileLoader.getCanonicalFile(baseURI.substring(0, p + 1), resource);
@@ -1286,7 +1291,10 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
         String s = url.toString();
         if (s.length() <= 1)
             return s;
-        int p = s.lastIndexOf('/');
+        
+        String separator = PathResolver.separator(s);
+        
+        int p = s.lastIndexOf(separator);
         if (p == s.length() - 1) {
             int p2 = s.lastIndexOf('/', p - 1);
             if (p2 >= 0) {
@@ -1307,7 +1315,10 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
 
     protected String getRefURLBase(URL url) {
     	String s = url.toString();
-        int p = s.lastIndexOf('/');
+    	
+    	String separator = PathResolver.separator(s);
+    	
+        int p = s.lastIndexOf(separator);
         if (p >= 0)
             s = s.substring(0, p);
 
@@ -1317,6 +1328,8 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
     protected String getParentAddress(URL url){
     	String parent = "";
     	
+    	String separator = PathResolver.separator(url.getPath());
+    	
     	if (url.getProtocol().equals("file"))
 			try {
 				parent = getFileFromURL(url).getParentFile().getAbsolutePath() + File.separator;
@@ -1325,7 +1338,7 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
 				e.printStackTrace();
 			}
 		else if (url.getProtocol().equals("http") || url.getProtocol().equals("https"))
-            parent = url.toString().substring(0, url.toString().lastIndexOf('/') + 1);
+            parent = url.toString().substring(0, url.toString().lastIndexOf(separator) + 1);
     	
     	return parent;
     }

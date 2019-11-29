@@ -28,6 +28,7 @@ import xbrlcore.linkbase.CalculationLinkbase;
 import xbrlcore.linkbase.CalculationRule;
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
+import xbrlcore.util.PathResolver;
 
 /**
  * @TODO: Add comment.
@@ -55,6 +56,9 @@ public class CalculationLinkbaseTest {
      * This method is executed before all test cases in this JUnit test.
      */
     
+    private static String OJK_INSTANCE_LOCATION = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\INSTANCE\\252913-2019-11-30-000021300.xml";
+    private static String OJK_TAXONOMY_LOCATION = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\EXTRACTEDDIR\\taxonomy\\view\\pmv\\2019-06-03\\bulanan\\gabungan\\000021300\\000021300-2019-06-03.xsd";
+    
     @BeforeClass
     public static void setUp() {
         try {
@@ -64,10 +68,12 @@ public class CalculationLinkbaseTest {
             // taxCalcDTS = taxonomyFactory.createTaxonomy(new File(PATH
             // + "tax_calc.xsd"));
 
+            String ootbTaxonomy = "xbrl/test/linkbase_test/tax_calc.xsd";
             taxCalcDTS = TestHelper
-                .getDTS("xbrl/test/linkbase_test/tax_calc.xsd");
-            instance = instanceFactory.createInstance(new File(PATH
-                + "instance.xml"));
+                .getDTS(OJK_TAXONOMY_LOCATION);
+            String ootbInstanceFile = PATH
+                    + "instance.xml";
+            instance = instanceFactory.createInstance(new File(OJK_INSTANCE_LOCATION));
         } catch (Exception ex) {
             System.out.println(ex.toString());
             ex.printStackTrace();
@@ -170,7 +176,10 @@ public class CalculationLinkbaseTest {
     
     private static void openStreamTest() throws Exception {
     	String protocolPath = new File(PATH + "instance.xml").toURI().toURL().toString();
-    	int lastIndex = protocolPath.lastIndexOf('/');
+    	
+    	String separator = PathResolver.separator(protocolPath);
+    	
+    	int lastIndex = protocolPath.lastIndexOf(separator);
     	protocolPath = protocolPath.substring(0, lastIndex + 1);
     	protocolPath = "file:///Users/fauzi/xbrl-core-development/eclispe.workspace/xbrlcore/xbrl/test/linkbase_test/";
     	URL base = new URL(protocolPath);

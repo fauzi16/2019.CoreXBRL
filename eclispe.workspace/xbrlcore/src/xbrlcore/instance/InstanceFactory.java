@@ -31,6 +31,8 @@ import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.Namespace;
 import xbrlcore.taxonomy.TaxonomySchema;
 import xbrlcore.taxonomy.TupleDefinition;
+import xbrlcore.util.PathResolver;
+
 import static xbrlcore.taxonomy.NamespaceJDOMAdapter.toJDOM;
 
 /**
@@ -134,7 +136,10 @@ public class InstanceFactory {
 
         URL base = null;
         String f = instanceFile.toString(); //instanceFile.getFile();
-        int sp = f.lastIndexOf('/');
+        
+        String separator = PathResolver.separator(f);
+        
+        int sp = f.lastIndexOf(separator);
         if (sp >= 0) {
             base = new URL(f.substring(0, sp + 1));
         }
@@ -812,9 +817,13 @@ if ( currFactConcept == null )
         String s = url.toString();
         if (s.length() <= 1)
             return s;
-        int p = s.lastIndexOf('/');
+        
+        
+        String separator = PathResolver.separator(s);
+        
+        int p = s.lastIndexOf(separator);
         if (p == s.length() - 1) {
-            int p2 = s.lastIndexOf('/', p - 1);
+            int p2 = s.lastIndexOf(separator, p - 1);
             if (p2 >= 0) {
                 if (p2 == p - 1)
                     return "";

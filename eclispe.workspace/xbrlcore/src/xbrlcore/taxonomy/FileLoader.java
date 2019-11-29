@@ -12,6 +12,7 @@ import java.net.URLConnection;
 
 import sun.security.action.GetLongAction;
 import sun.util.logging.resources.logging;
+import xbrlcore.util.PathResolver;
 
 /**
  * Base class to get a taxonomy / instance file
@@ -41,7 +42,9 @@ public class FileLoader {
     
     URL getFileURL(String basePath, String namespace, String schemaLocation) throws MalformedURLException {
     	
-    	int p = schemaLocation.lastIndexOf('/');
+    	String separator = PathResolver.separator(schemaLocation);
+    	
+    	int p = schemaLocation.lastIndexOf(separator);
     	
     	if (p < 0){
     		//workaround if not an url (seen in some cases)
@@ -84,12 +87,13 @@ public class FileLoader {
 
     public static URL getCanonicalURL(String path, String file) throws MalformedURLException {
         path = path.replace("\\", "/");
-
+        
         if (path.endsWith( "/" ))
             path = path.substring(0, path.length() - 1);
 
+        String separator = PathResolver.separator(path);
         while (file.startsWith("../")) {
-            int p = path.lastIndexOf('/');
+            int p = path.lastIndexOf(separator);
             if (p < 0)
                 return new URL(path + "/" + file);
 
@@ -106,8 +110,9 @@ public class FileLoader {
         if (path.endsWith( "/" ))
             path = path.substring(0, path.length() - 1);
 
+        String separator = PathResolver.separator(path);
         while (file.startsWith("../")) {
-            int p = path.lastIndexOf('/');
+            int p = path.lastIndexOf(separator);
             if (p < 0)
                 return path + "/" + file;
 
@@ -119,7 +124,9 @@ public class FileLoader {
     }
 
     public static final URL getURL(String namespace, String schemaLocation) throws MalformedURLException {
-        int p = namespace.lastIndexOf('/');
+    	String separator = PathResolver.separator(namespace);
+    	
+    	int p = namespace.lastIndexOf(File.separator);
         if (p > 0)
             namespace = namespace.substring(0, p);
 

@@ -6,6 +6,7 @@
  */
 package xbrlcore.taxonomy.sax;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import xbrlcore.constants.NamespaceConstants;
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.taxonomy.Namespace;
 import xbrlcore.taxonomy.TaxonomySchema;
+import xbrlcore.util.PathResolver;
 
 /**
  * @author d2504hd
@@ -164,10 +166,12 @@ public class XBRLSchemaContentHandler implements ContentHandler {
 		        }
 		    }
 			//if we did not found the "official" prefix, build one
-			if (targetNamespacePrefix == null) 
+			if (targetNamespacePrefix == null) {
+				String separator = PathResolver.separator(targetNamespaceURI);
 				targetNamespacePrefix = "ns_"
-					+ targetNamespaceURI.substring(targetNamespaceURI
-							.lastIndexOf("/") + 1, targetNamespaceURI.length());
+						+ targetNamespaceURI.substring(targetNamespaceURI
+								.lastIndexOf(separator) + 1, targetNamespaceURI.length());
+			}
 			taxonomySchema.setNamespace(Namespace.getNamespace(
 					targetNamespacePrefix, targetNamespaceURI));
 		} else if (localName.equals("element")

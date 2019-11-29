@@ -1,5 +1,6 @@
 package xbrlcore.taxonomy.sax;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -24,6 +26,7 @@ import xbrlcore.linkbase.PresentationLinkbase;
 import xbrlcore.linkbase.ReferenceLinkbase;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.TaxonomySchema;
+import xbrlcore.util.PathResolver;
 
 /**
  * @author d2504hd
@@ -53,6 +56,8 @@ public class SAXBuilder {
 	private boolean topTaxonomy;
 
 	private Map<String, String> fixedSchemaFiles;
+	
+	private static final Logger logger = Logger.getLogger(SAXBuilder.class);
 
 	/**
 	 * TODO: Konstruktor sollte keine Exceptions werfen!
@@ -75,6 +80,8 @@ public class SAXBuilder {
 
 	public DiscoverableTaxonomySet build(InputSource source)
 			throws IOException, SAXException, XBRLException {
+		logger.debug("loading taxonomy " + source.toString());
+		
 		topTaxonomy = true;
 		xbrlSchemaContentHandler = new XBRLSchemaContentHandler();
 		xbrlLinkbaseContentHandler = new XBRLLinkbaseContentHandler();
@@ -84,9 +91,13 @@ public class SAXBuilder {
 		linkbaseFiles = new HashMap<String, String>();
 
 		if (baseDir == null) {
+			String separator = PathResolver.separator(source.getSystemId());
 			String baseDirString = source.getSystemId().substring(0,
-					source.getSystemId().lastIndexOf("/") + 1);
-			baseDir = URI.create(baseDirString);
+					source.getSystemId().lastIndexOf(separator) + 1);
+			if(baseDirString.startsWith("http"))
+				baseDir = URI.create(baseDirString);
+			else
+				baseDir = new File(baseDirString).toURI();
 		}
 
 		xmlReader = saxParser.getXMLReader();
@@ -99,13 +110,19 @@ public class SAXBuilder {
 		xbrlLinkbaseContentHandler.setDTS(dts);
 		for (String fileName : linkbaseFiles.keySet()) {
 			String role = linkbaseFiles.get(fileName);
+			if (role == null) {
+				continue;
+			}
+			logger.debug("Parse Linkbase : " + fileName);
 			parseLinkbases(new InputSource(fileName), role);
 		}
 
 		if (dts.getPresentationLinkbase() != null) {
+			logger.debug("Build Presentation Linkbase.");
 			dts.getPresentationLinkbase().buildLinkbase();
 		}
 		if (dts.getDefinitionLinkbase() != null) {
+			logger.debug("Build Definition Linkbase.");
 			dts.getDefinitionLinkbase().buildLinkbase();
 		}
 
@@ -192,16 +209,20 @@ public class SAXBuilder {
 
 	private DiscoverableTaxonomySet parseSchema(InputSource source)
 			throws SAXException, IOException {
-		URI schemaDir = URI.create(source.getSystemId().substring(0,
-				source.getSystemId().lastIndexOf("/") + 1));
+		
+		String separator = PathResolver.separator(source.getSystemId());
+		
+		URI schemaDir = PathResolver.getDirURI(source.getSystemId());
 
 		/*
 		 * TODO: That is just a work-around. Think about how to implement it
 		 * correctly with name and location; especially when creating the
 		 * references in instance documents
 		 */
+		
+		
 		String name = source.getSystemId().substring(
-				source.getSystemId().lastIndexOf('/') + 1,
+				source.getSystemId().lastIndexOf(separator) + 1,
 				source.getSystemId().length());
 
         TaxonomySchema newSchema = new TaxonomySchema(dts, name);
@@ -253,7 +274,7 @@ public class SAXBuilder {
 			}
 
 			else {
-				parseSchema(new InputSource(baseDir.toString()
+				parseSchema(new InputSource(schemaDir.toString()
 						+ currSchemaLocation));
 			}
 

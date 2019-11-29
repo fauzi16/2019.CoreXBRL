@@ -13,6 +13,7 @@ import xbrlcore.exception.XBRLException;
 import xbrlcore.taxonomy.AbstractTaxonomyLocator;
 import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 import xbrlcore.taxonomy.TaxonomySchema;
+import xbrlcore.util.PathResolver;
 
 /**
  * Locates taxonomy files.
@@ -41,7 +42,7 @@ public class InstanceReferencedTaxonomyLocator implements AbstractTaxonomyLocato
         try {
             if (base == null)
                 return xbrlBuilder.build(new InputSource(taxonomyResource));
-            InputSource inputSource = new InputSource(new URL(base, taxonomyResource).openStream());
+            InputSource inputSource = PathResolver.resolveInputSource(base, taxonomyResource);
             if(inputSource.getSystemId() == null)
             	inputSource = new InputSource(base.getFile() + taxonomyResource);
             return xbrlBuilder.build(inputSource);
