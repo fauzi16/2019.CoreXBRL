@@ -60,8 +60,8 @@ public class DefaultTaxonomyObjectFactory implements TaxonomyObjectFactory {
     @Override
     public Concept newConcept(String name, String id, String type, ConceptTypeRestriction typeRestriction,
                               TaxonomySchema taxonomySchema,
-                              String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef) {
-        return new Concept(name, id, type, typeRestriction, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef);
+                              String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef, String enumLinkrole) {
+        return new Concept(name, id, type, typeRestriction, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef, enumLinkrole);
     }
 
     @Override

@@ -119,9 +119,8 @@ public class DefaultTaxonomyLoader extends AbstractTaxonomyLoader<DiscoverableTa
      * {@inheritDoc}
      */
     @Override
-    protected void createConcept(TaxonomySchema taxonomySchema, String id, String name, String type, ConceptTypeRestriction typeRestriction, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef) throws TaxonomyCreationException {
-        Concept concept = objectFactory.newConcept(name, id, type, typeRestriction, taxonomySchema, substitutionGroup, abstract_, nillable, periodType, balance, typedDomainRef);
-
+    protected void createConcept(TaxonomySchema taxonomySchema, String id, String name, String type, ConceptTypeRestriction typeRestriction, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef, String enumLinkRole) throws TaxonomyCreationException {
+        Concept concept = objectFactory.newConcept(name, id, type, typeRestriction, taxonomySchema, substitutionGroup, abstract_, nillable, periodType, balance, typedDomainRef, enumLinkRole);
         taxonomySchema.addConcept(concept);
     }
 

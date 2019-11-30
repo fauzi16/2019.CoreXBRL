@@ -415,7 +415,7 @@ public class DefinitionLinkbase extends Linkbase {
      * @return Returns all dimension elements (substitution group
      *         xbrldt:dimensionItem) of this definition linkbase. The set
      *         contains Concept objects.
-     */
+     */ 
     public Set<Concept> getDimensionConceptSet() {
         if (!linkbaseBuilt)
             throw new IllegalStateException("DefinitionLinkbase not built yet!");

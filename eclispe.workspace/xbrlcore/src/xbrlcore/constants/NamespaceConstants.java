@@ -50,8 +50,12 @@ public class NamespaceConstants {
     public static final String COREP_SCHEMA_NAME_DT = "dt-2005-06-20.xsd";
 
     public static final String HGBREF_URI = "http://www.xbrl.de/2008/ref";
+    
+    public static final String ENUM_URI = "http://xbrl.org/2014/extensible-enumerations";
 
     // Prefixes
+    
+    public static final String ENUM_NAMESPACE_PREFIX = "enum";
 
     public static final String XBRLI_NAMESPACE_PREFIX = "xbrli";
 
@@ -100,6 +104,9 @@ public class NamespaceConstants {
 
 	public static final Namespace XSD_NAMESPACE = Namespace.getNamespace(
 			XSD_NAMESPACE_PREFIX, XSD_NAMESPACE_URI);
+	
+	public static final Namespace ENUM_NAMESPACE = Namespace.getNamespace(
+			ENUM_NAMESPACE_PREFIX, ENUM_URI);
 	
 	/*
 	public static final Namespace XSD_NAMESPACE_NO_PREFIX = Namespace.getNamespace(

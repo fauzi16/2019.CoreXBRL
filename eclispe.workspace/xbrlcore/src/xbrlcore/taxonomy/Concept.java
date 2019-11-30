@@ -40,6 +40,11 @@ public class Concept implements Serializable, Cloneable {
     private boolean isTupleItem = false;
 
     private transient Object userObject = null;
+    
+    /**
+     * this field will only be available for enumerationItem
+     */
+    private String enumLinkRole;
 
     /**
      * 
@@ -64,7 +69,7 @@ public class Concept implements Serializable, Cloneable {
      */
     public Concept(String name, String id, String type, ConceptTypeRestriction typeRestriction,
                    TaxonomySchema taxonomySchema,
-                   String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef) {
+                   String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef, String enumLinkrole) {
         this.name = name;
         this.id = id;
         this.typeString = type;
@@ -116,6 +121,8 @@ public class Concept implements Serializable, Cloneable {
         }
 
         this.typedDomainRef = typedDomainRef;
+        
+        this.enumLinkRole = enumLinkrole;
     }
 
     /**
@@ -334,4 +341,14 @@ public class Concept implements Serializable, Cloneable {
     public void setUserObject(Object userObject) {
         this.userObject = userObject;
     }
+
+	public String getEnumLinkRole() {
+		return enumLinkRole;
+	}
+
+	public void setEnumLinkRole(String enumLinkRole) {
+		this.enumLinkRole = enumLinkRole;
+	}
+    
+    
 }

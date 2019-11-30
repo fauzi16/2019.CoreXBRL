@@ -533,6 +533,7 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
                 boolean abstract_ = Boolean.parseBoolean(currConceptElement.getAttributeValue("abstract"));
                 boolean nillable = Boolean.parseBoolean(currConceptElement.getAttributeValue("nillable"));
                 String typedDomainRef = currConceptElement.getAttributeValue("typedDomainRef", toJDOM(NamespaceConstants.XBRLDT_NAMESPACE));
+                String enumLinkrole = currConceptElement.getAttributeValue("linkrole", toJDOM(NamespaceConstants.ENUM_NAMESPACE));
 
                 if ("xbrli:tuple".equalsIgnoreCase(substitutionGroup)) {
                     Element complexType = currConceptElement.getChild("complexType", toJDOM(NamespaceConstants.XSD_NAMESPACE));
@@ -548,7 +549,7 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
                 } else {
                     ConceptTypeRestriction typeRestriction = parseComplexTypeSimpleContent(currConceptElement);
 
-                    createConcept(taxonomySchema, id, name, type, typeRestriction, substitutionGroup, periodType, balance, abstract_, nillable, typedDomainRef);
+                    createConcept(taxonomySchema, id, name, type, typeRestriction, substitutionGroup, periodType, balance, abstract_, nillable, typedDomainRef, enumLinkrole);
                 }
             }
 
@@ -633,7 +634,7 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
         createTuple(taxonomySchema, id, name, type, substitutionGroup, periodType, balance, abstract_, nillable, typedDomainRef, tupleType, refs);
     }
 
-    protected abstract void createConcept(TS taxonomySchema, String id, String name, String type, ConceptTypeRestriction typeRestriction, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef) throws TaxonomyCreationException;
+    protected abstract void createConcept(TS taxonomySchema, String id, String name, String type, ConceptTypeRestriction typeRestriction, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef, String enumLinkrole) throws TaxonomyCreationException;
 
     protected abstract void createTuple(TS taxonomySchema, String id, String name, String type, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef, TupleType tupleType, List<String> refs) throws TaxonomyCreationException;
 

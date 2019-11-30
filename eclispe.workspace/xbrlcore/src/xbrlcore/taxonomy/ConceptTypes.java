@@ -39,6 +39,7 @@ public enum ConceptTypes {
     NUMBER_OF_OVERSHOOTINGS("p-mi:numberOfOvershootingsItemType", false, true),
     
     DOMAIN_ITEM_TYPE("nonnum:domainItemType", false, false),
+    ENUMERATION_ITEM_TYPE("enum:enumerationItemType", false, false),
     
     QNAME("xbrli:QNameItemType", false, false),
 

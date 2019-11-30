@@ -40,7 +40,7 @@ public class TupleDefinition extends Concept {
                            TaxonomySchema taxonomySchema,
                            String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance,  String typedDomainRef,
                            List<String> refs) {
-        super(name, id, type, null, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef);
+        super(name, id, type, null, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef, null);
 
         this.tupleType = tupleType;
         this.refs = refs;
@@ -50,7 +50,7 @@ public class TupleDefinition extends Concept {
                               TaxonomySchema taxonomySchema,
                               String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef,
                               List<String[]> itemKeys, Object dummy) {
-        super(name, id, type, null, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef);
+        super(name, id, type, null, taxonomySchema, substitutionGroup, isAbstract, nillable, periodType, balance, typedDomainRef, null);
 
         this.tupleType = tupleType;
         this.itemKeys = itemKeys;

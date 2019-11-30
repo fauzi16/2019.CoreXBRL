@@ -1,7 +1,13 @@
 TO DO XBRL Reporting Manager :
 
-1. Find alternative way to get list of PrimaryItems (with the way to get its labels) - DONE
-2. Find alternative way to get list of Hypercube Structure
-3. Find alternative way to get list of extensible enumeration
-4. Find alternative way to get taxonomy structurece
-
+1. Find alternative way to get taxonomy structure
+	- Find alternative way to get list of PrimaryItems for :
+		A. Fixed Type Taxonomy (with the way to get its labels) - DONE
+		B. Dimensional Taxonomy (with the way to get its labels) - DONE
+		A. Tuple Taxonomy (with the way to get its labels) - 
+2. Find alternative way to get list of Hypercube Structure - DONE
+3. Find alternative way to get list of extensible enumeration - DONE
+4. Creating Instance File for :
+	a. Fixed Taxonomy
+	b. Tuple Taxonomy
+	d. Dimensional Taxonomy

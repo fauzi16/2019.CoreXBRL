@@ -38,7 +38,7 @@ public interface TaxonomyObjectFactory {
 
     public Concept newConcept(String name, String id, String type, ConceptTypeRestriction typeRestriction,
                               TaxonomySchema taxonomySchema,
-                              String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef);
+                              String substitutionGroup, boolean isAbstract, boolean nillable, String periodType, String balance, String typedDomainRef, String enumLinkRole);
 
     public TupleDefinition newTupleDefinition(String name, String id, String type, TupleType tupleType,
                                               TaxonomySchema taxonomySchema,

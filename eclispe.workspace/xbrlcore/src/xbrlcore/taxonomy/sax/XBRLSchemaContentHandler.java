@@ -6,7 +6,6 @@
  */
 package xbrlcore.taxonomy.sax;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -210,8 +209,9 @@ public class XBRLSchemaContentHandler implements ContentHandler {
 		                              atts.getValue("nillable") != null && atts.getValue("nillable").equals("true"),
 		                              atts.getValue(namespaceMapping.get(NamespaceConstants.XBRL_SCHEMA_LOC_INSTANCE_URI) + ":periodType"),
                                       atts.getValue(namespaceMapping.get(NamespaceConstants.XBRL_SCHEMA_LOC_INSTANCE_URI) + ":balance"),
-		                              atts.getValue(NamespaceConstants.XBRLDT_URI, "typedDomainRef")
-		                              );
+		                              atts.getValue(NamespaceConstants.XBRLDT_URI, "typedDomainRef"),
+		                              atts.getValue("enum:linkrole"));
+		
 
 		// TODO: This exception must be thrown to the invoking method!
 		try {
