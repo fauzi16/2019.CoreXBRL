@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import xbrlcore.constants.GeneralConstants;
 import xbrlcore.taxonomy.Concept;
 import xbrlcore.xlink.ExtendedLinkElement;
 import xbrlcore.xlink.Locator;
@@ -361,6 +360,13 @@ public class Hypercube implements Serializable {
 	 */
 	public Set<Dimension> getDimensionSet(String extendedLinkRole){
 		return dimensionSet.get(extendedLinkRole);
+	}
+	
+	/**
+	 * @return Map of dimension set structure.
+	 */
+	public Map<String, Set<Dimension>> getDimensionSetMap(){
+		return dimensionSet;
 	}
 	
     /**

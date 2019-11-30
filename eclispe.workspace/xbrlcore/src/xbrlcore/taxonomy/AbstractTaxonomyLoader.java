@@ -11,7 +11,6 @@ import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -741,7 +740,8 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
             List<Element> linkbaseRefList = taxonomyNameToLinkBaseRefElements.get(currTaxonomySchemaName);
             if (linkbaseRefList != null) {
                 for (Element currLinkbaseRefElement : linkbaseRefList) {
-                    if (currLinkbaseRefElement.getAttributeValue("role", toJDOM(NamespaceConstants.XLINK_NAMESPACE)).equals(role)) {
+                	String roleAttributeValue = currLinkbaseRefElement.getAttributeValue("role", toJDOM(NamespaceConstants.XLINK_NAMESPACE));
+                    if (roleAttributeValue != null && roleAttributeValue.equals(role)) {
                         String linkbaseSource = currLinkbaseRefElement
                                 .getAttributeValue("href", toJDOM(NamespaceConstants.XLINK_NAMESPACE));
                         URL url = getRelativeResource(taxonomySource.getBaseURI(), linkbaseSource);
@@ -949,7 +949,8 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
                 continue;
 
             for (Element currLinkbaseRefElement : linkbaseRefList) {
-                if (currLinkbaseRefElement.getAttributeValue("role", toJDOM(NamespaceConstants.XLINK_NAMESPACE)).equals(role)) {
+            	String roleAttributeValue = currLinkbaseRefElement.getAttributeValue("role", toJDOM(NamespaceConstants.XLINK_NAMESPACE));
+                if (roleAttributeValue != null && roleAttributeValue.equals(role)) {
                     String linkbaseSource = currLinkbaseRefElement.getAttributeValue("href", toJDOM(NamespaceConstants.XLINK_NAMESPACE));
 
                     URL url = getRelativeResource(taxonomySource.getBaseURI(), linkbaseSource);

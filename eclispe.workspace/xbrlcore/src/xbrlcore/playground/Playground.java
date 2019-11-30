@@ -15,7 +15,8 @@ import xbrlcore.taxonomy.DiscoverableTaxonomySet;
 
 public class Playground {
 
-	private static final String BASE_FOLDER = "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/xbrl.ojk.go.id/view/pp/2019-06-03/tahunan/gabungan/000020600/";
+	private static final String BASE_FOLDER = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\EXTRACTEDDIR\\taxonomy\\view\\pp\\2019-06-03\\tahunan\\gabungan\\000020600";
+	//private static final String BASE_FOLDER = "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/xbrl.ojk.go.id/view/pp/2019-06-03/tahunan/gabungan/000020600/";
 	private static final String TAXONOMY_FILE = "000020600-2019-06-03.xsd";
 	private static final String EXTENDED_LINKROLE = "http://xbrl.ojk.go.id/taxonomy/role/F000020600";
 	

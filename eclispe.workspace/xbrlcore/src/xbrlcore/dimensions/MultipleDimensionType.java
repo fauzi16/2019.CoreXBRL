@@ -28,7 +28,7 @@ public class MultipleDimensionType implements Serializable, Cloneable {
 
     private Set<SingleDimensionType> predecessorDimensionDomainSet;
 
-    /**
+    /** 
      * Constructor.
      * 
      * @param dimensionElement

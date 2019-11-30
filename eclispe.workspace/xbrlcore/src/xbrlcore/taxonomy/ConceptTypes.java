@@ -38,6 +38,8 @@ public enum ConceptTypes {
     MULTIPLE_FACTOR("p-mi:multiplicationFactorItemType", false, true),
     NUMBER_OF_OVERSHOOTINGS("p-mi:numberOfOvershootingsItemType", false, true),
     
+    DOMAIN_ITEM_TYPE("nonnum:domainItemType", false, false),
+    
     QNAME("xbrli:QNameItemType", false, false),
 
     GYEAR("", false, true),

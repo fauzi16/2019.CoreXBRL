@@ -117,37 +117,54 @@ public abstract class Linkbase implements Serializable {
         it = container.getBaseArcs();
         while (it.hasNext()) {
             Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                arcBaseSets.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                arcBaseSets.put(e.getKey(), e.getValue());
+            if(arcBaseSets.containsKey(e.getKey())) {
+            	arcBaseSets.get(e.getKey()).addAll(e.getValue());
+            } else {
+            	if (copyLists) {
+                	arcBaseSets.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+                } else {
+                	arcBaseSets.put(e.getKey(), e.getValue());
+                }
+            }   
         }
 
         it = container.getOverriddenArcs();
         while (it.hasNext()) {
             Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                overridenArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                overridenArcs.put(e.getKey(), e.getValue());
+            if(overridenArcs.containsKey(e.getKey())) {
+            	overridenArcs.get(e.getKey()).addAll(e.getValue());
+            } else {
+            	if (copyLists)
+                    overridenArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+                else
+                    overridenArcs.put(e.getKey(), e.getValue());
+            }
         }
 
         it = container.getProhibitingArcs();
         while (it.hasNext()) {
             Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                prohibitingArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                prohibitingArcs.put(e.getKey(), e.getValue());
+            if(prohibitingArcs.containsKey(e.getKey())) {
+            	prohibitingArcs.get(e.getKey()).addAll(e.getValue());
+            } else {
+            	if (copyLists)
+                    prohibitingArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+                else
+                    prohibitingArcs.put(e.getKey(), e.getValue());
+            }
         }
 
         it = container.getProhibitedArcs();
         while (it.hasNext()) {
             Entry<String, List<Arc>> e = it.next();
-            if (copyLists)
-                prohibitedArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
-            else
-                prohibitedArcs.put(e.getKey(), e.getValue());
+            if(prohibitedArcs.containsKey(e.getKey())) {
+            	prohibitedArcs.get(e.getKey()).addAll(e.getValue());
+            } else {
+            	if (copyLists)
+                    prohibitedArcs.put(e.getKey(), new ArrayList<Arc>(e.getValue()));
+                else
+                    prohibitedArcs.put(e.getKey(), e.getValue());
+            }
         }
     }
 

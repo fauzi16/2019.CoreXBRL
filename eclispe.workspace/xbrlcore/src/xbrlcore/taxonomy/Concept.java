@@ -132,7 +132,7 @@ public class Concept implements Serializable, Cloneable {
     @Override
     public String toString() {
         if (id != null)
-            return "ID: " + id + ", name: " + name;
+            return "ID: " + id + ", name: " + name + ", type: " + type + ", typeString: " + typeString;
 
         return "ID: missing, name: " + name;
     }
