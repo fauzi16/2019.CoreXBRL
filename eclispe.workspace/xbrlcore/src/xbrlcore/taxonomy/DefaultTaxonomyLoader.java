@@ -1,3 +1,4 @@
+
 package xbrlcore.taxonomy;
 
 import java.io.IOException;

@@ -14,7 +14,11 @@ import xbrlcore.xlink.Locator;
 
 public class PlaygroundDimension {
 
+	/**
 	private static final String BASE_URL = "C:\\Users\\fauzi16\\Documents\\Work\\Fujitsu\\ID.OJK\\2019.ID.XBRL\\ID.XBRL\\Source\\XRDM\\XRDM-Basic\\CONFIGXBRL\\EXTRACTEDDIR\\taxonomy\\view\\pp\\2016-06-11\\bulanan\\gabungan\\531020300";
+	*/
+	
+	private static final String BASE_URL = "/Users/fauzi/xbrl-reporting-manager/2019.XBRL.ReportingManager/xbrlrootfolder/base/taxonomy/xbrl.ojk.go.id/view/pp/2016-06-11/bulanan/gabungan/531020300";
 	private static final String TAXONOMY_LOCATION = "531020300-2016-06-11.xsd";
 
 	public static void main(String[] args) throws Exception {

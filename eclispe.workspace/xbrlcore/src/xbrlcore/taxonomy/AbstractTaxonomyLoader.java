@@ -597,10 +597,10 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
         throw new TaxonomyCreationException("Unsupported tuple type " + tt.name());
     }
 
-    private static TupleType parseTupleType(String id, Element restriction) throws TaxonomyCreationException {
+    private static TupleType parseTupleType(String id, Element tupleRoot) throws TaxonomyCreationException {
     	
         for (TupleType tt : TupleType.values()) {
-            Element child = restriction.getChild(getElementNameFromTT(tt), toJDOM(NamespaceConstants.XSD_NAMESPACE));
+            Element child = tupleRoot.getChild(getElementNameFromTT(tt), toJDOM(NamespaceConstants.XSD_NAMESPACE));
             if (child != null) {
                 if (tt == TupleType.CHOICE && "unbounded".equals(child.getAttributeValue("maxOccurs")))
                     return TupleType.MULTIPLE_CHOICE;
@@ -613,18 +613,24 @@ public abstract class AbstractTaxonomyLoader<ResultType, TS> {
     }
 
     private void parseTuple(TS taxonomySchema, String id, String name, String type, String substitutionGroup, String periodType, String balance, boolean abstract_, boolean nillable, String typedDomainRef, Element complexType) throws TaxonomyCreationException {
+    	TupleType tupleType = null;
+    	Element tupleRoot = null;
     	Element complexContent = complexType.getChild("complexContent", toJDOM(NamespaceConstants.XSD_NAMESPACE));
-    	if (complexContent == null)
-    		throw new TaxonomyCreationException("tuple" + id + " has no <complexContent>!");
-    	
-    	Element restriction = complexContent.getChild("restriction", toJDOM(NamespaceConstants.XSD_NAMESPACE));
-    	if (restriction == null)
-    		throw new TaxonomyCreationException("tuple" + id + " has no <restriction>!");
-    	
-    	TupleType tupleType = parseTupleType(id, restriction);
+    	if (complexContent == null) {
+    		tupleType = parseTupleType(id, complexType);
+    		tupleRoot = complexType;
+    	} else {
+    		tupleRoot = complexContent.getChild("restriction", toJDOM(NamespaceConstants.XSD_NAMESPACE));
+        	if (tupleRoot == null)
+        		throw new TaxonomyCreationException("tuple" + id + " has no <restriction>!");
+        	
+        	tupleType = parseTupleType(id, tupleRoot);
+    		
+    	}
+    		
         ArrayList<String> refs = new ArrayList<String>();
 
-        Element listElem = restriction.getChild(getElementNameFromTT(tupleType), toJDOM(NamespaceConstants.XSD_NAMESPACE));
+        Element listElem = tupleRoot.getChild(getElementNameFromTT(tupleType), toJDOM(NamespaceConstants.XSD_NAMESPACE));
         @SuppressWarnings("unchecked")
 		List<Element> elementsList = listElem.getChildren("element", toJDOM(NamespaceConstants.XSD_NAMESPACE));
         for (Element element : elementsList) {
