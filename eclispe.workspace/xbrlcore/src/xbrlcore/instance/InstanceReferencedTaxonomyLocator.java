@@ -46,14 +46,8 @@ public class InstanceReferencedTaxonomyLocator implements AbstractTaxonomyLocato
     	
     	try {
     		DiscoverableTaxonomySet dts = _loadTaxonomy(taxonomyResource);
-    		dts.getCalculationLinkbase().buildLinkbase();
-    		dts.getLabelLinkbase().buildLinkbase();
-    		dts.getDefinitionLinkbase().buildLinkbase();
-    		dts.getPresentationLinkbase().buildLinkbase();
-    		dts.getReferenceLinkbase().buildLinkbase();
     		return dts;
     	} catch (Exception e) {
-    		e.printStackTrace();
     		System.out.println("failed of first try to loading taxonomy");
     	}
     	
